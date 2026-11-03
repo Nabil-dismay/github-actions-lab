@@ -27,4 +27,4 @@ jobs:
 
       - name: Run unit tests with nose
         run: |
-          .venv/bin/nosetests
+          .venv/bin/python -c "import collections; import collections.abc; collections.Callable = collections.abc.Callable; import nose; nose.main()"
