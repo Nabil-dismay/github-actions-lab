@@ -3,9 +3,27 @@ name: CI Pipeline
 on:
   push:
   pull_request:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
     container:
       image: node:18
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y python3 python3-pip
+          pip3 install -r requirements.txt
+
+      - name: Lint code with Flake8
+        run: |
+          flake8 calculator.py
+
+      - name: Run unit tests with nose
+        run: |
+          nosetests
